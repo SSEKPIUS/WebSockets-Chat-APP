@@ -72,16 +72,13 @@ server.on('connection', (newclient) =>{
   
       const {id, command, data } = JSON.parse(message);
       
-      // const messageBody = JSON.parse(data);
-      // ws.send(JSON.stringify({...messageBody, from: "from server"}));
+      newclient.send(JSON.stringify({...JSON.parse(message), from: "from server"}));
     } catch (error) {
       console.log(error);
     }
   });  
 
   newclient.on('close', (con) => {
-    console.log("closing connection");
-    console.log('has key:', clients.has(newclient));
     if (clients.has(newclient)) clients.delete(newclient);
   });
 });

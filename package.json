@@ -1,0 +1,34 @@
+{
+  "name": "websockets-chat-app",
+  "version": "1.0.0",
+  "description": "web chat app based on websocket framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server.ts 7071"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSEKPIUS/WebSockets-Chat-APP.git"
+  },
+  "author": "pius ssekweyama",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SSEKPIUS/WebSockets-Chat-APP/issues"
+  },
+  "homepage": "https://github.com/SSEKPIUS/WebSockets-Chat-APP#readme",
+  "dependencies": {
+    "axios": "^1.3.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "logger": "0.0.1",
+    "winston": "^3.8.2",
+    "ws": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5"
+  }
+}

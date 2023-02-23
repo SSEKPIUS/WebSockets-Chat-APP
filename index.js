@@ -15,6 +15,12 @@ const messages = new Map();
 const messagestmp = [
   { id: uuidv4(), from: 1, to: 5, message: 'Elitr et et rebum et tempor nonumy nonumy sed aliquyam. Et magna vero stet clita clita aliquyam lorem, stet eirmod.', deleted: false, read: true, date_sent: '2023-01-18 08:14:03' },
   { id: uuidv4(), from: 5, to: 1, message: 'Parasites to lay a there power the thou massy nor,.message 2', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Sadipscing no dolor no et amet vero vero accusam lorem kasd, diam et rebum est nonumy. At et lorem diam.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Magna est amet duo stet sea voluptua no gubergren, elitr et tempor erat no dolor vero elitr. Lorem diam sanctus.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Est et no labore labore elitr et sed eirmod ipsum. Sea eos diam dolor et sed. Elitr gubergren est voluptua.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Sed rebum diam lorem est eos clita. Accusam sanctus amet sit et ipsum voluptua amet et. Et dolores et accusam.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Et ipsum est at et labore et takimata consetetur. Sadipscing amet eirmod kasd et sadipscing erat. Ut dolore labore voluptua.Parasites to lay a there power the thou massy nor,.message 2', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Parasites to lay a there power the thou massy nor,.message 2Justo accusam erat clita voluptua sit, et kasd diam et sea kasd, ea consetetur dolore takimata takimata diam. Et ea.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
   { id: uuidv4(), from: 1, to: 7, message: 'Choient noyé et yeux des.message 3', deleted: false, read: true, date_sent: '2023-01-18 08:20:03' },
   { id: uuidv4(), from: 7, to: 1, message: 'Labore amet dolor clita accusam dolores nonumy. Sed amet sed takimata ut at. Dolor lorem diam vero stet magna eos.message 6', deleted: false, read: true, date_sent: '2023-01-18 08:24:03' },
   { id: uuidv4(), from: 1, to: 7, message: 'Justo diam invidunt sit vero clita stet stet consetetur. Amet et.message 7', deleted: false, read: false, date_sent: '2023-01-18 09:20:03' },
@@ -94,16 +100,26 @@ server.on('connection', (client) =>{
               client.send(JSON.stringify({command, response: filtered}));
               break
             case '002': // recieve message ie {to: 5, message: 'example message'} => { id: uuidv4(), from: 1, to: 5, message: 'example message', deleted: false, read: true, date_sent: '2023-01-18 08:14:03' }
-               const {to, message} = data  
-               const meta = {id: uuidv4(), from: id, to, message, deleted: false, read: false, date_sent: moment().format('YYYY-MM-D HH:MM:ss')}
-              
-               // filter clients where id = from and to, filter coresoponding messsages
-               messages.set('0', [...messages.get('0'), meta])
+              const {to, message} = data  
+              const meta = {id: uuidv4(), from: id, to, message, deleted: false, read: false, date_sent: moment().format('YYYY-MM-D HH:MM:ss')}
+              messages.set('0', [...messages.get('0'), meta])
 
-               //
-               console.log('recieve message:',meta)
-               //
-               client.send(JSON.stringify({command, response: messages.get('0')}));
+              //
+              console.log('recieve message:',meta)
+              //
+
+              // filter clients where id = from and to, filter coresoponding messsages
+              // client.send(JSON.stringify({command, response: messages.get('0')}));
+
+              for (let [key, value] of clients) {
+                if(value === id || value === to){
+                  key.send(JSON.stringify({command, response: meta }));
+                }
+                //
+                console.log(key + " = " + value);
+                //
+              }
+                
               break
             default:
               break

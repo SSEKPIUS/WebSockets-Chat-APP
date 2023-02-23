@@ -14,22 +14,22 @@ const messages = new Map();
 // test run 
 const messagestmp = [
   { id: uuidv4(), from: 1, to: 5, message: 'Elitr et et rebum et tempor nonumy nonumy sed aliquyam. Et magna vero stet clita clita aliquyam lorem, stet eirmod.', deleted: false, read: true, date_sent: '2023-01-18 08:14:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Parasites to lay a there power the thou massy nor,.message 2', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Sadipscing no dolor no et amet vero vero accusam lorem kasd, diam et rebum est nonumy. At et lorem diam.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Magna est amet duo stet sea voluptua no gubergren, elitr et tempor erat no dolor vero elitr. Lorem diam sanctus.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Est et no labore labore elitr et sed eirmod ipsum. Sea eos diam dolor et sed. Elitr gubergren est voluptua.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Sed rebum diam lorem est eos clita. Accusam sanctus amet sit et ipsum voluptua amet et. Et dolores et accusam.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Et ipsum est at et labore et takimata consetetur. Sadipscing amet eirmod kasd et sadipscing erat. Ut dolore labore voluptua.Parasites to lay a there power the thou massy nor,.message 2', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
-  { id: uuidv4(), from: 5, to: 1, message: 'Parasites to lay a there power the thou massy nor,.message 2Justo accusam erat clita voluptua sit, et kasd diam et sea kasd, ea consetetur dolore takimata takimata diam. Et ea.', deleted: false, read: false, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Parasites to lay a there power the thou massy nor,.message 2', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Sadipscing no dolor no et amet vero vero accusam lorem kasd, diam et rebum est nonumy. At et lorem diam.', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Magna est amet duo stet sea voluptua no gubergren, elitr et tempor erat no dolor vero elitr. Lorem diam sanctus.', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Est et no labore labore elitr et sed eirmod ipsum. Sea eos diam dolor et sed. Elitr gubergren est voluptua.', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Sed rebum diam lorem est eos clita. Accusam sanctus amet sit et ipsum voluptua amet et. Et dolores et accusam.', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Et ipsum est at et labore et takimata consetetur. Sadipscing amet eirmod kasd et sadipscing erat. Ut dolore labore voluptua.Parasites to lay a there power the thou massy nor,.message 2', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
+  { id: uuidv4(), from: 5, to: 1, message: 'Parasites to lay a there power the thou massy nor,.message 2Justo accusam erat clita voluptua sit, et kasd diam et sea kasd, ea consetetur dolore takimata takimata diam. Et ea.', deleted: false, read: true, date_sent: '2023-01-18 08:18:03' },
   { id: uuidv4(), from: 1, to: 7, message: 'Choient noyé et yeux des.message 3', deleted: false, read: true, date_sent: '2023-01-18 08:20:03' },
-  { id: uuidv4(), from: 7, to: 1, message: 'Labore amet dolor clita accusam dolores nonumy. Sed amet sed takimata ut at. Dolor lorem diam vero stet magna eos.message 6', deleted: false, read: true, date_sent: '2023-01-18 08:24:03' },
-  { id: uuidv4(), from: 1, to: 7, message: 'Justo diam invidunt sit vero clita stet stet consetetur. Amet et.message 7', deleted: false, read: false, date_sent: '2023-01-18 09:20:03' },
-  { id: uuidv4(), from: 7, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 7', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' },
+  { id: uuidv4(), from: 7, to: 1, message: 'Labore amet dolor clita accusam dolores nonumy. Sed amet sed takimata ut at. Dolor lorem diam vero stet magna eos.message 6', deleted: true, read: true, date_sent: '2023-01-18 08:24:03' },
+  { id: uuidv4(), from: 1, to: 7, message: 'Justo diam invidunt sit vero clita stet stet consetetur. Amet et.message 7', deleted: false, read: true, date_sent: '2023-01-18 09:20:03' },
+  { id: uuidv4(), from: 7, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 7', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
   { id: uuidv4(), from: 2, to: 1, message: 'Schatten einst dunst  zu lispelnd der in lied mir mit, euch mein die ergreift vom, sich macht wirklichkeiten vom.Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 7', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' },
-  { id: uuidv4(), from: 3, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Aliquyam et tempor et ut lorem.', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' },
-  { id: uuidv4(), from: 6, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' },
-  { id: uuidv4(), from: 6, to: 3, message: 'Justo diam aliquyam vero takimata justo et sed sed amet. Lorem et consetetur amet.Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' },
-  { id: uuidv4(), from: 3, to: 6, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.Sanctus ut takimata aliquyam sit dolor est lorem.', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' }
+  { id: uuidv4(), from: 3, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Aliquyam et tempor et ut lorem.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
+  { id: uuidv4(), from: 6, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
+  { id: uuidv4(), from: 6, to: 3, message: 'Justo diam aliquyam vero takimata justo et sed sed amet. Lorem et consetetur amet.Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
+  { id: uuidv4(), from: 3, to: 6, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.Sanctus ut takimata aliquyam sit dolor est lorem.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' }
 ]
 messages.set('0', messagestmp); // use institute: institution.registration_no
 //  test run
@@ -85,9 +85,6 @@ server.on('connection', (client) =>{
   client.on('message', (reqdata, isBinary) => {
     try {
       const message = isBinary ? reqdata : reqdata.toString();
-      //
-      console.log('messageAsString:',message)
-      //
       const {id, command, data } = JSON.parse(message);
       if (id && authenticated_clients.has(id)) {
         const metadata = authenticated_clients.get(id); 
@@ -103,23 +100,11 @@ server.on('connection', (client) =>{
               const {to, message} = data  
               const meta = {id: uuidv4(), from: id, to, message, deleted: false, read: false, date_sent: moment().format('YYYY-MM-D HH:MM:ss')}
               messages.set('0', [...messages.get('0'), meta])
-
-              //
-              console.log('recieve message:',meta)
-              //
-
-              // filter clients where id = from and to, filter coresoponding messsages
-              // client.send(JSON.stringify({command, response: messages.get('0')}));
-
               for (let [key, value] of clients) {
                 if(value === id || value === to){
                   key.send(JSON.stringify({command, response: meta }));
                 }
-                //
-                console.log(key + " = " + value);
-                //
               }
-                
               break
             default:
               break

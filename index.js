@@ -83,7 +83,6 @@ const server = new WebSocket.Server({
 });
 
 server.on('connection', (client) =>{
-  clients.set(client, null);
   client.on('message', (reqdata, isBinary) => {
     try {
       const message = isBinary ? reqdata : reqdata.toString();
@@ -93,7 +92,7 @@ server.on('connection', (client) =>{
         if (command) {
           switch (command) {
             case '001': // request chats ie { id: 1, command: '001' }
-              clients.set(client, id); // update client id
+              clients.set(id, client); // update client id
               const messageBlock =  messages.get(metadata.institute);
               const filtered = messageBlock.filter(block => block.from === id || block.to === id)
               client.send(JSON.stringify({command, response: filtered}));
@@ -103,8 +102,8 @@ server.on('connection', (client) =>{
               const meta = {id: uuidv4(), from: id, to: to002, message: message002, deleted: false, read: false, date_sent: moment().format('YYYY-MM-D HH:MM:ss')}
               messages.set(metadata.institute, [...messages.get(metadata.institute), meta])
               for (let [key, value] of clients) {
-                if(value === id || value === to002){
-                  key.send(JSON.stringify({command, response: meta }));
+                if(key === id || key === to002){
+                  value.send(JSON.stringify({command, response: meta }));
                 }
               }
               break
@@ -118,8 +117,8 @@ server.on('connection', (client) =>{
                 }
               ))
               for (let [key, value] of clients) {
-                if(value === id || value === to003){
-                  key.send(JSON.stringify({command, response: payload }));
+                if(key === id || key === to003){
+                  value.send(JSON.stringify({command, response: payload }));
                 }
               }
             break

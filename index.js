@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 var moment = require('moment');
 moment().format(); 
 
-var { find, startsWith } =  require('lodash');
+var { find, startsWith, includes } =  require('lodash');
 const axios = require('axios');
 const log = require('./modules/logger');
 const WebSocket = require('ws');
@@ -25,7 +25,7 @@ const messagestmp = [
   { id: uuidv4(), from: 7, to: 1, message: 'Labore amet dolor clita accusam dolores nonumy. Sed amet sed takimata ut at. Dolor lorem diam vero stet magna eos.message 6', deleted: true, read: true, date_sent: '2023-01-18 08:24:03' },
   { id: uuidv4(), from: 1, to: 7, message: 'Justo diam invidunt sit vero clita stet stet consetetur. Amet et.message 7', deleted: false, read: true, date_sent: '2023-01-18 09:20:03' },
   { id: uuidv4(), from: 7, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 7', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
-  { id: uuidv4(), from: 2, to: 1, message: 'Schatten einst dunst  zu lispelnd der in lied mir mit, euch mein die ergreift vom, sich macht wirklichkeiten vom.Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 7', deleted: false, read: false, date_sent: '2023-01-19 08:14:03' },
+  { id: uuidv4(), from: 2, to: 1, message: 'Schatten einst dunst  zu lispelnd der in lied mir mit, euch mein die ergreift vom, sich macht wirklichkeiten vom.Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 7', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
   { id: uuidv4(), from: 3, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Aliquyam et tempor et ut lorem.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
   { id: uuidv4(), from: 6, to: 1, message: 'Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
   { id: uuidv4(), from: 6, to: 3, message: 'Justo diam aliquyam vero takimata justo et sed sed amet. Lorem et consetetur amet.Amet labore nonumy lorem aliquyam dolores amet, gubergren.message 6Magna dolor diam at et lorem. Et.', deleted: false, read: true, date_sent: '2023-01-19 08:14:03' },
@@ -56,6 +56,7 @@ async function checkToken (token) {
   }); 
   return request;
 }
+
 async function authenticate (req) {
   const authtokenObj = req.headers.cookie.split(';');
   const result = find(authtokenObj,n => startsWith(n.trim(),'auth._token'));
@@ -65,6 +66,7 @@ async function authenticate (req) {
   }
   return false;
 }
+
 const server = new WebSocket.Server({
     port: process.env.PORT || 7071, // The port number the server should listen on. This is a required property.
     host: process.env.HOST || 'localhost', // The hostname the server should listen on. || will listen on all available network interfaces.
@@ -97,15 +99,30 @@ server.on('connection', (client) =>{
               client.send(JSON.stringify({command, response: filtered}));
               break
             case '002': // recieve message ie {to: 5, message: 'example message'} => { id: uuidv4(), from: 1, to: 5, message: 'example message', deleted: false, read: true, date_sent: '2023-01-18 08:14:03' }
-              const {to, message} = data  
-              const meta = {id: uuidv4(), from: id, to, message, deleted: false, read: false, date_sent: moment().format('YYYY-MM-D HH:MM:ss')}
-              messages.set('0', [...messages.get('0'), meta])
+              const {to: to002 , message: message002} = data  
+              const meta = {id: uuidv4(), from: id, to: to002, message: message002, deleted: false, read: false, date_sent: moment().format('YYYY-MM-D HH:MM:ss')}
+              messages.set(metadata.institute, [...messages.get(metadata.institute), meta])
               for (let [key, value] of clients) {
-                if(value === id || value === to){
+                if(value === id || value === to002){
                   key.send(JSON.stringify({command, response: meta }));
                 }
               }
               break
+            case '003': // mark message read id [{id: uuidv4()}, {id: uuidv4()}]
+              const {to: to003, payload} = data
+              if(Array.isArray(payload)) return
+              messages.set(metadata.institute, messages.map(
+                (block) => {
+                  if(includes(payload, block.id)) return { ...block, read: false }
+                  return block;
+                }
+              ))
+              for (let [key, value] of clients) {
+                if(value === id || value === to003){
+                  key.send(JSON.stringify({command, response: payload }));
+                }
+              }
+            break
             default:
               break
           }
@@ -117,8 +134,8 @@ server.on('connection', (client) =>{
   });  
 
   client.on('close', (e) => {
+    clients.delete(client);
     console.log(e);
-    if (clients.has(client)) clients.delete(client);
   });
 });
 
